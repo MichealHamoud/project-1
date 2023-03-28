@@ -20,4 +20,3 @@ const APIController = (function(){
         }
 })
 
-https://api.spotify.com/v1/search
