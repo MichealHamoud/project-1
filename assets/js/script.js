@@ -1,22 +1,21 @@
-//api for spotify
-const APIController = (function(){
+//get token api
 
-    const clientId ='44c2ad3160174fc089bfbe272aa6eb71';
-    const clientSecret = '5d75f019233b4757a4de12db7680508c';
+var client_id = '44c2ad3160174fc089bfbe272aa6eb71';
+var client_secret = '5d75f019233b4757a4de12db7680508c';
 
-        // private methods
-        const _getToken = async () => {
+var authOptions = {
+  url: 'https://accounts.spotify.com/api/token',
+  headers: {
+    'Authorization': 'Basic ' + (new Buffer.from(client_id + ':' + client_secret).toString('base64'))
+  },
+  form: {
+    grant_type: 'client_credentials'
+  },
+  json: true
+};
 
-            const result = await fetch('https://accounts.spotify.com/api/token', {
-                method: 'POST',
-                headers: {
-                    'Content-Type' : 'application/x-www-form-urlencoded', 
-                    'Authorization' : 'Basic ' + btoa( clientId + ':' + clientSecret)
-                },
-                body: 'grant_type=client_credentials'
-            });
-    
-            const data = await result.json();
-            return data.access_token;
-        }
-})
+request.post(authOptions, function(error, response, body) {
+  if (!error && response.statusCode === 200) {
+    var token = body.access_token;
+  }
+});
