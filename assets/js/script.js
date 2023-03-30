@@ -1,53 +1,48 @@
-var userFormEl = document.querySelector('#user-form');
-var artistInputEl = document.querySelector('#artist');
+//var userFormEl = document.querySelector('#user-form');
+var artistInputEl = document.querySelector('#user-form');
 var songContainerEl = document.querySelector('#song-container');
 var artistSearchTerm = document.querySelector('#artist-search-term');
 var songButtonEl = document.querySelector('#song-button');
 
-var formSubmitHandler = function (event) {
+function formSubmitHandler(event) {
   event.preventDefault();
-
-  var artist = artistInputEl.value.trim();
-
-  if (artist) {
-    getArtist(artist);
+    var artist = document.getElementById('username').value;
+      console.log('1heheheh', artist);
+      if (artist) {
+       getArtist(artist);
 
     songContainerEl.textContent = '';
     artistInputEl.value = '';
   } 
 };
 
-var buttonClickHandler = function (event) {
-   //`event.target` is a reference to the DOM element of what programming language button was clicked on the page
-  var language = event.target.getAttribute('data-language');
+// var buttonClickHandler = function (event) {
+//   var artistInputEl = event.target.getAttribute('artists');
+// console.log('2heheheh');
+//   if (artistInputEl) {
+//     getFeaturedRepos(artistInputEl);
 
-   //If there is no language read from the button, don't attempt to fetch repos
-  if (language) {
-    getFeaturedRepos(language);
+//     songContainerEl.textContent = '';
+//   }
+// };
 
-    songContainerEl.textContent = '';
-  }
-};
-
-var getArtist = function (user) {
-  var apiUrl = 'https://api.spotify.com/v1/search?q=name:' + song + '%20artist:' + artist + '&type=track&limit=10';
-
+var getArtist = function (artist) {
+  console.log('3heheh');
+  var apiUrl = 'https://api.spotify.com/v1/search?q=name:'artist:' + artist + '&type=artist&limit=10
   fetch(apiUrl)
     .then(function (response) {
       if (response.ok) {
         console.log(response);
         response.json().then(function (data) {
           console.log(data);
-          displayArtist(data, user);
+          displayArtist(data, artist);
         });
       } 
     });
 };
 
 var getFeaturedArtist = function (language) {
-  // The `q` parameter is what language we want to query, the `+is:featured` flag adds a filter to return only featured repositories
-  // The `sort` parameter will instruct GitHub to respond with all of the repositories in order by the number of issues needing help
-  var apiUrl = 'https://api.spotify.com/v1/search?q=name:' + song + '%20artist:' + artist + '&type=track&limit=10';
+  var apiUrl = 'https://api.spotify.com/v1/search?q=name:' + track + '%20artist:' + artist + '&type=track&limit=10';
 
   fetch(apiUrl).then(function (response) {
     if (response.ok) {
@@ -60,15 +55,13 @@ var getFeaturedArtist = function (language) {
 
 var displayArtist = function (artist, searchTerm) {
   if (artist.length === 0) {
-    songContainerEl.textContent = 'No repositories found.';
-    // Without a `return` statement, the rest of this function will continue to run and perhaps throw an error if `repos` is empty
+    songContainerEl.textContent = 'No songs found.';
     return;
   }
 
   artistSearchTerm.textContent = searchTerm;
 
   for (var i = 0; i < artist.length; i++) {
-    // The result will be `<github-username>/<github-repository-name>`
     var artistName = artist[i].name + '/' + artist[i].song;
 
     var artistEl = document.createElement('div');
@@ -95,5 +88,6 @@ var displayArtist = function (artist, searchTerm) {
   }
 };
 
-userFormEl.addEventListener('submit', formSubmitHandler);
+artistInputEl.addEventListener('click', formSubmitHandler);
+
 //songButtonEl.addEventListener('click', buttonClickHandler);
