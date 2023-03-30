@@ -7,27 +7,27 @@ var songButtonEl = document.querySelector('#song-button');
 var formSubmitHandler = function (event) {
   event.preventDefault();
 
-  var username = artistInputEl.value.trim();
+  var artist = artistInputEl.value.trim();
 
-  if (username) {
-    getArtist(username);
+  if (artist) {
+    getArtist(artist);
 
     songContainerEl.textContent = '';
     artistInputEl.value = '';
   } 
 };
 
-//var buttonClickHandler = function (event) {
-  // `event.target` is a reference to the DOM element of what programming language button was clicked on the page
-  //var language = event.target.getAttribute('data-language');
+var buttonClickHandler = function (event) {
+   //`event.target` is a reference to the DOM element of what programming language button was clicked on the page
+  var language = event.target.getAttribute('data-language');
 
-  // If there is no language read from the button, don't attempt to fetch repos
-  //if (language) {
-  //  getFeaturedRepos(language);
+   //If there is no language read from the button, don't attempt to fetch repos
+  if (language) {
+    getFeaturedRepos(language);
 
-   // songContainerEl.textContent = '';
-  //}
-//};
+    songContainerEl.textContent = '';
+  }
+};
 
 var getArtist = function (user) {
   var apiUrl = 'https://api.spotify.com/v1/search?q=name:' + song + '%20artist:' + artist + '&type=track&limit=10';
