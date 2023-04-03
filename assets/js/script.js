@@ -2,20 +2,28 @@ var userFormEl = document.querySelector('#user-form');
 var artistInputEl = document.querySelector('#artist');
 var songContainerEl = document.querySelector('#song-container');
 var artistSearchTerm = document.querySelector('#artist-search-term');
-var songButtonEl = document.querySelector('#song-button');
+//var songButtonEl = document.querySelector('#song-button');
 
 var formSubmitHandler = function (event) {
   event.preventDefault();
 
-  var username = artistInputEl.value.trim();
+  var username = nameInputEl.value.trim();
 
   if (username) {
-    getArtist(username);
+    getUserRepos(username);
+
+    repoContainerEl.textContent = '';
+    nameInputEl.value = '';
+  } else {
+    alert('Please enter a GitHub username');
+  }
+};
+
+console.log (username.value)
 
     songContainerEl.textContent = '';
     artistInputEl.value = '';
-  } 
-};
+-
 
 //var buttonClickHandler = function (event) {
   // `event.target` is a reference to the DOM element of what programming language button was clicked on the page
@@ -97,3 +105,4 @@ var displayArtist = function (artist, searchTerm) {
 
 userFormEl.addEventListener('submit', formSubmitHandler);
 //songButtonEl.addEventListener('click', buttonClickHandler);
+console.log(username.value);
